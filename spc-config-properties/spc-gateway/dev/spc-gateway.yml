@@ -1,4 +1,4 @@
 zuul:
   routes:
-    spc-user: /api/simulator/**
+    spc-simulator: /api/simulator/**
     spc-auth-server : /auth/**

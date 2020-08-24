@@ -1,0 +1,4 @@
+zuul:
+  routes:
+    ms-user: /api/simulator/**
+    ms-auth-server : /auth/**

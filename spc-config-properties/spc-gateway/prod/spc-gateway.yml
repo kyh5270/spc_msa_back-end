@@ -1,4 +1,4 @@
 zuul:
   routes:
-    ms-user: /api/simulator/**
-    ms-auth-server : /auth/**
+    spc-user: /api/simulator/**
+    spc-auth-server : /auth/**

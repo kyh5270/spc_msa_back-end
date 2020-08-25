@@ -1,4 +1,5 @@
 zuul:
   routes:
     spc-simulator: /api/simulator/**
+    spc-timecheck: /api/timecheck/**
     spc-auth-server : /auth/**

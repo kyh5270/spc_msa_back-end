@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: spc-simulator
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: spc-config-server

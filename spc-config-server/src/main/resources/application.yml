@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/kyh5270/spc_msa/
+          search-paths:
+            - "spc-config-properties/{application}/{profile}"

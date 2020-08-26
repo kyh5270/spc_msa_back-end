@@ -1,0 +1,17 @@
+server:
+  port: 8765
+spring:
+  application:
+    name: spc-gateway
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: spc-config-server
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 200000

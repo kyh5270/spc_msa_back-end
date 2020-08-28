@@ -1,10 +1,13 @@
 package eu.dreamix.spc.service;
 
-import eu.dreamix.spc.entity.Simulator;
+import eu.dreamix.spc.entity.RandomDateMessage;
+import eu.dreamix.spc.entity.SimulatorInput;
 
 public interface SimulatorService {
 
-	String registerKeyword(Simulator input);
+	void registerKeyword_self(RandomDateMessage input);
+	
+	void registerKeyword(SimulatorInput input);
     
     void kafkaStop();
 }

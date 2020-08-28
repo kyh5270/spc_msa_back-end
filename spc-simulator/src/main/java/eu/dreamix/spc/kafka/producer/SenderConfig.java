@@ -10,7 +10,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import eu.dreamix.spc.entity.Simulator;
+import eu.dreamix.spc.entity.RandomDateMessage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,12 +32,12 @@ public class SenderConfig {
     }
 
     @Bean
-    public ProducerFactory<String, Simulator> producerFactory() {
+    public ProducerFactory<String, RandomDateMessage> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, Simulator> kafkaTemplate() {
+    public KafkaTemplate<String, RandomDateMessage> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 

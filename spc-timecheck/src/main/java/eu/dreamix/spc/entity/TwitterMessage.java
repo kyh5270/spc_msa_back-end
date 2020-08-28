@@ -1,14 +1,27 @@
-package eu.dreamix.spc.entity.dto;
+package eu.dreamix.spc.entity;
 
-public class SpcDto {
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+@Entity
+public class TwitterMessage {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    private String keyword;
+    
+    //created time
     private String created_at;
 
+    //tweet text
     private String text;
     
-    public SpcDto() {
+    private String source;
+    
+    public TwitterMessage() {
     }
 
     public Long getId() {
@@ -19,6 +32,14 @@ public class SpcDto {
         this.id = id;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+    
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+    
     public String getCreated_at() {
         return created_at;
     }
@@ -34,5 +55,4 @@ public class SpcDto {
     public void setText(String text) {
         this.text = text;
     }
-    
 }

@@ -21,9 +21,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class TestProducer {
+public class TwitterProducer {
 
-    static Logger logger = LoggerFactory.getLogger(TestProducer.class.getName());
+    static Logger logger = LoggerFactory.getLogger(TwitterProducer.class.getName());
 
     static String consumerKey = "NloKhCEW0AjZmPThUy4Vo8vhe";
     static String consumerSecret = "Q7a3rQFSzXPCsq0oON5n5i8SB4SCGUgVqO5NevluU8BS3xORRR";
@@ -34,10 +34,10 @@ public class TestProducer {
     static KafkaProducer<String, String> producer = null;
     //List<String> terms = Lists.newArrayList("kafka");
 
-    public TestProducer() {}
+    public TwitterProducer() {}
 
     public static void main(String[] args) {
-        //new TestProducer().run();
+        //new TwitterProducer().run();
     }
 
     public static void generator_stop() {
@@ -51,27 +51,25 @@ public class TestProducer {
     
     //public  void run(){    
     public static String generator(String keyword){
-    	String return_int = "TestProducer_generator";
+    	String return_int = "TwitterProducer_generator";
     	
-        logger.info("TestProducer_generator - Start");
+        logger.info("TwitterProducer_generator - Start");
 
         List<String> terms = Lists.newArrayList(keyword);
         
         /** Set up your blocking queues: Be sure to size these properly based on expected TPS of your stream */
-        BlockingQueue<String> msgQueue = new LinkedBlockingQueue<String>(1000);
+        BlockingQueue<String> msgQueue = new LinkedBlockingQueue<String>(100000);
 
-        logger.info("TestProducer_generator - create a twitter client");
+        logger.info("TwitterProducer_generator - create a twitter client");
         
         // create a twitter client
-        //Client client = createTwitterClient(msgQueue, terms);
         client = createTwitterClient(msgQueue, terms);
-        logger.info("TestProducer_generator - Attempts to establish a connection.");
+        logger.info("TwitterProducer_generator - Attempts to establish a connection.");
         // Attempts to establish a connection.
         client.connect();
 
-        logger.info("TestProducer_generator - create a kafka producer");
+        logger.info("TwitterProducer_generator - create a kafka producer");
         // create a kafka producer
-        //KafkaProducer<String, String> producer = createKafkaProducer();
         producer = createKafkaProducer();
 
         // add a shutdown hook
@@ -95,7 +93,7 @@ public class TestProducer {
                 client.stop();
             }
             if (msg != null){         	
-                logger.info("TestProducer_generator - twitter_tweets msg : " + msg);
+                logger.info("TwitterProducer_generator - twitter_tweets msg : " + msg);
                 producer.send(new ProducerRecord<>("twitter_tweets", null, msg), new Callback() {
                     @Override
                     public void onCompletion(RecordMetadata recordMetadata, Exception e) {
@@ -127,7 +125,7 @@ public class TestProducer {
                 .hosts(hosebirdHosts)
                 .authentication(hosebirdAuth)
                 .endpoint(hosebirdEndpoint)
-                .processor(new StringDelimitedProcessor(msgQueue));                          // optional: use this if you want to process client events
+                .processor(new StringDelimitedProcessor(msgQueue));      // optional: use this if you want to process client events
 
         Client hosebirdClient = builder.build();
         return hosebirdClient;
@@ -152,7 +150,7 @@ public class TestProducer {
         properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG,"snappy");
         properties.setProperty(ProducerConfig.LINGER_MS_CONFIG,"20");
         properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32*1024));
-
+        
         // create the producer
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
         return producer;

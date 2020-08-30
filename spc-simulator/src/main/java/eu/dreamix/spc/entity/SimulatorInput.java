@@ -6,6 +6,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class SimulatorInput {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	
     @NotNull
     private String keyword;
     
@@ -20,4 +24,11 @@ public class SimulatorInput {
         this.keyword = keyword;
     }
     
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

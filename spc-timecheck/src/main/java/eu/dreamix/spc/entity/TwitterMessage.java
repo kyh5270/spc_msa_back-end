@@ -10,6 +10,8 @@ public class TwitterMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long id_str;
+    
     @NotNull
     private String keyword;
     
@@ -20,6 +22,10 @@ public class TwitterMessage {
     private String text;
     
     private String source;
+    
+    private String truncated;
+    
+    private String lang;
     
     public TwitterMessage() {
     }
@@ -32,6 +38,14 @@ public class TwitterMessage {
         this.id = id;
     }
 
+    public Long getId_str() {
+        return id_str;
+    }
+    
+    public void setId_str(Long id_str) {
+        this.id_str = id_str;
+    }
+    
     public String getKeyword() {
         return keyword;
     }
@@ -54,5 +68,29 @@ public class TwitterMessage {
 
     public void setText(String text) {
         this.text = text;
+    }
+    
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+    
+    public String getTruncated() {
+        return truncated;
+    }
+
+    public void setTruncated(String truncated) {
+        this.truncated = truncated;
+    }
+    
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

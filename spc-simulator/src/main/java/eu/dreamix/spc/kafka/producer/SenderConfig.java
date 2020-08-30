@@ -1,6 +1,7 @@
 package eu.dreamix.spc.kafka.producer;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.network.Send;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -45,4 +46,5 @@ public class SenderConfig {
     public Sender sender() {
         return new Sender();
     }
+    
 }

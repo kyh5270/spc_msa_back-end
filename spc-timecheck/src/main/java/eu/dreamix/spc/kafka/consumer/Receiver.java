@@ -14,6 +14,7 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 
 import eu.dreamix.spc.entity.RandomDateMessage;
+import eu.dreamix.spc.entity.TwitterMessage;
 import eu.dreamix.spc.service.TimecheckService;
 
 public class Receiver {
@@ -38,7 +39,7 @@ public class Receiver {
     public void receive(RandomDateMessage payload) { 	
     	
     	//LOGGER.info("Received Message: " + message + "from partition: " + partition);		
-    	
+        LOGGER.info("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※");
         LOGGER.info("received Id          = '{}'", payload.getId());
         LOGGER.info("received Keyword     = '{}'", payload.getKeyword());
         LOGGER.info("received CreatedTime = '{}'", payload.getCreatedTime());
@@ -93,4 +94,23 @@ public class Receiver {
 //        timecheckService.sendSimpleMessage(payload);
 //        latch.countDown();
     }
+    
+    @KafkaListener(topics = "twitter_tweets")
+    public void receive(TwitterMessage payload) { 	
+    	
+    	//LOGGER.info("Received Message: " + message + "from partition: " + partition);		
+        LOGGER.info("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※");
+        LOGGER.info("received Keyword     = '{}'", payload.getKeyword());
+        
+        LOGGER.info("received Id          = '{}'", payload.getId());
+        LOGGER.info("received Id_str      = '{}'", payload.getId_str());
+        LOGGER.info("received CreatedTime = '{}'", payload.getCreated_at());
+        LOGGER.info("received Description = '{}'", payload.getText());     
+        LOGGER.info("received Source      = '{}'", payload.getSource());   
+        LOGGER.info("received Truncated   = '{}'", payload.getTruncated());   
+        LOGGER.info("received lang        = '{}'", payload.getLang());    
+        
+    }
+    
+    
 }

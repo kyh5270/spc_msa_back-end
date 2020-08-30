@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.apache.kafka.clients.producer.MockProducer;
 
 import eu.dreamix.spc.entity.RandomDateMessage;
 
@@ -20,4 +21,5 @@ public class Sender {
         LOGGER.info("sending payload='{}' to topic='{}'", payload, topic);
         kafkaTemplate.send(topic, payload);
     }
+    
 }

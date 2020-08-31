@@ -12,7 +12,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import eu.dreamix.spc.entity.RandomDateMessage;
-import eu.dreamix.spc.entity.dto.SpcDto;
+import eu.dreamix.spc.entity.TwitterMessage;
 
 import java.util.HashMap;
 import java.util.Map;

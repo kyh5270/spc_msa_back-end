@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,12 +31,10 @@ public class SimulatorController {
     }
 
 	@RequestMapping(method = RequestMethod.POST, path = "/generate_self")
-    public ResponseEntity<RandomDateMessage> generate_self(@RequestBody RandomDateMessage input) {
+    public void generate_self(@RequestBody RandomDateMessage input) {
 
     	logger.info("generate_self - Start");
     	simulatorService.registerKeyword_self(input);
-    	
-        return new ResponseEntity<>(null, HttpStatus.OK);
     }
     
 	@RequestMapping(method = RequestMethod.POST, path = "/generate")
@@ -43,17 +43,35 @@ public class SimulatorController {
     	logger.info("generate - Start");
     	simulatorService.registerKeyword(input);
     	
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+        header.add("AUTHCODE","xxxxxxx");
+        header.add("TOKEN", "xxxxxx");
+    	
+        return new ResponseEntity<>(header, HttpStatus.OK);
     }
 	
-	
-	//????????????????????
 	@RequestMapping(method = RequestMethod.POST, path = "/stop")
     public ResponseEntity<SimulatorInput> stop(@RequestBody SimulatorInput input) {
 
     	logger.info("stop - Start");
     	simulatorService.kafkaStop();
   	
+        MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+        header.add("AUTHCODE","xxxxxxx");
+        header.add("TOKEN", "xxxxxx");
+    	
+        return new ResponseEntity<>(header, HttpStatus.OK);
+    }
+	
+	@RequestMapping(method = RequestMethod.POST, path = "/test")
+    public ResponseEntity<SimulatorInput> test(@RequestBody SimulatorInput input) {
+
+    	logger.info("test - Start");
+  	
+        MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+        header.add("AUTHCODE","xxxxxxx");
+        header.add("TOKEN", "xxxxxx");
+    	
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }

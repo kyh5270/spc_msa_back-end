@@ -24,7 +24,6 @@ public class Receiver {
     @Autowired
     private TimecheckService timecheckService;
 
-    private String test;
     private String beforeCreated_at = "0";
     private String nowCreated_at;
     private int timeDiff;
@@ -70,18 +69,18 @@ public class Receiver {
 //    	obj.put("messages", list);
      
     	try {
-    		FileWriter file = new FileWriter("c:\\test.js");
+    		FileWriter file = new FileWriter("d:\\test.js");
     		file.write("showTours({\"tours\": [");
     		file.flush();
     		file.close();
     		
-    		File f1 = new File("c:\\test.js");
+    		File f1 = new File("d:\\test.js");
     		FileWriter fw1 = new FileWriter(f1, true);  		
     		fw1.write(obj.toJSONString());
     		fw1.flush();
     		fw1.close();
      
-    		File f2 = new File("c:\\test.js");
+    		File f2 = new File("d:\\test.js");
     		FileWriter fw2 = new FileWriter(f2, true);
     		fw2.write("]});");
     		fw2.flush();

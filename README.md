@@ -6,6 +6,9 @@ spc_msa_back-end
 ## spc-discovery : (Eureka)
 ## spc-gateway : (Zuul)
 ## spc-simulator : Simulator
+ - producer - generate_twitter : localhost:8765/api/simulator/generate  / { "id":"123",	"keyword":"Spring" }
+ - producer - stop_twitter : localhost:8765/api/simulator/stop / { "keyword":"stop" }
+ - producer - generate_self : localhost:8765/api/simulator/generate_self { "id":"123", "keyword":"car" }
 ## spc-timecheck : SPC Rule - 시간체크 Service
 
 

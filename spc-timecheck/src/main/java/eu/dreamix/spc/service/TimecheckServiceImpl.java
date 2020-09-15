@@ -6,7 +6,12 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+
+import eu.dreamix.spc.entity.RandomDateMessage;
+
+import eu.dreamix.spc.kafka.consumer.Receiver;
 
 @Component
 public class TimecheckServiceImpl implements TimecheckService {
@@ -39,6 +44,13 @@ public class TimecheckServiceImpl implements TimecheckService {
 		}	
 		
 		return (int) calDateDiff;
+	}
+
+	@Override
+	public Iterable<RandomDateMessage> getMessage() {
+		
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

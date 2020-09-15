@@ -3,6 +3,7 @@ package eu.dreamix.spc.kafka.consumer;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -12,6 +13,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.dreamix.spc.entity.RandomDateMessage;
 import eu.dreamix.spc.entity.TwitterMessage;
@@ -24,6 +29,9 @@ public class Receiver {
     @Autowired
     private TimecheckService timecheckService;
 
+    @Autowired
+    SimpMessagingTemplate template;
+    
     private String beforeCreated_at = "0";
     private String nowCreated_at;
     private int timeDiff;
@@ -54,43 +62,56 @@ public class Receiver {
         
         beforeCreated_at = payload.getCreatedTime();
         
-        // 특정 경로에 js 파일 저장
-        JSONObject obj = new JSONObject();
-    	obj.put("region", payload.getCreatedTime());
-    	obj.put("location", payload.getId());
-    	obj.put("details", payload.getText());
-//    	obj.put("age", new Integer(100));
-     
-//    	JSONArray list = new JSONArray();
-//    	list.add("msg 1");
-//    	list.add("msg 2");
-//    	list.add("msg 3");
-     
-//    	obj.put("messages", list);
-     
-    	try {
-    		FileWriter file = new FileWriter("d:\\test.js");
-    		file.write("showTours({\"tours\": [");
-    		file.flush();
-    		file.close();
-    		
-    		File f1 = new File("d:\\test.js");
-    		FileWriter fw1 = new FileWriter(f1, true);  		
-    		fw1.write(obj.toJSONString());
-    		fw1.flush();
-    		fw1.close();
-     
-    		File f2 = new File("d:\\test.js");
-    		FileWriter fw2 = new FileWriter(f2, true);
-    		fw2.write("]});");
-    		fw2.flush();
-    		fw2.close();
-    		
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
+        HashMap<String, String> msg = new HashMap<>();
+        msg.put("Id", Long.toString(payload.getId()));
+        msg.put("Keyword", payload.getKeyword());
+        msg.put("CreatedTime", payload.getCreatedTime());
+        msg.put("Text", payload.getText());
+        msg.put("Value", Integer.toString(payload.getValue()));
         
-//        timecheckService.sendSimpleMessage(payload);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+			String json = mapper.writeValueAsString(msg);
+			
+	        LOGGER.info("json       = '{}'", json);    
+			
+	        template.convertAndSend("/topic/test", json);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}      
+        
+//        // 특정 경로에 js 파일 저장
+//        JSONObject obj = new JSONObject();
+//    	obj.put("region", payload.getValue());
+//    	obj.put("location", payload.getCreatedTime());
+//    	obj.put("details", payload.getText());
+//     
+//    	try {
+//    		FileWriter file = new FileWriter("C:\\Temp_Home\\data\\test.js");
+//    		//file.write("showTours({\"tours\": [");
+//    		file.write("[");
+//    		file.flush();
+//    		file.close();
+//    		
+//    		File f1 = new File("C:\\Temp_Home\\data\\test.js");
+//    		FileWriter fw1 = new FileWriter(f1, true);  		
+//    		fw1.write(obj.toJSONString());
+//    		fw1.flush();
+//    		fw1.close();
+//     
+//    		File f2 = new File("C:\\Temp_Home\\data\\test.js");
+//    		FileWriter fw2 = new FileWriter(f2, true);
+//    		//fw2.write("]});");
+//    		fw2.write("]");
+//    		fw2.flush();
+//    		fw2.close();
+//    		
+//    	} catch (IOException e) {
+//    		e.printStackTrace();
+//    	}
+        
+        //timecheckService.sendSimpleMessage(payload);
 //        latch.countDown();
     }
     

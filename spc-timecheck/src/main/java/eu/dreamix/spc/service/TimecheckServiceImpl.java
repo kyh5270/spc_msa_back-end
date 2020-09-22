@@ -53,4 +53,41 @@ public class TimecheckServiceImpl implements TimecheckService {
 		return null;
 	}
 
+	@Override
+	public int cal_Rs(int beforeValue, int nowValue) {
+		// TODO Auto-generated method stub		
+		
+		return Math.abs(beforeValue - nowValue);
+	}
+
+	@Override
+	public int cal_XCL() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int cal_XUCL() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int cal_XLCL() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int cal_RsCL() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int cal_RsUCL() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

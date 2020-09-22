@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
+import org.springframework.kafka.listener.MessageListenerContainer;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,9 @@ public class TimecheckController {
     Logger logger = LoggerFactory.getLogger(TimecheckController.class.getName());
 	
     private TimecheckService timecheckService;
+    
+    @Autowired
+    private KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
     
     @Autowired
     TimecheckController(TimecheckService timecheckService) {
@@ -46,6 +51,12 @@ public class TimecheckController {
     	//return new Receiver();
     }
 
+    @RequestMapping("/stop")
+    public void stop() {
+        MessageListenerContainer listenerContainer = kafkaListenerEndpointRegistry.getListenerContainer("console-consumer-16341");
+        listenerContainer.stop();
+    }
+    
 //    @MessageMapping("/message")//@MessageMapping works for WebSocket protocol communication. This defines the URL mapping.
 //    //@SendTo("/topic/public")//websocket subscribe topic& direct send
 //    public void sendMessage(ChattingMessage message) throws Exception {

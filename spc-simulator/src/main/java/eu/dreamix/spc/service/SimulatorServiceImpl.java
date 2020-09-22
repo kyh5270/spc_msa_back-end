@@ -31,10 +31,10 @@ public class SimulatorServiceImpl implements SimulatorService {
     	logger.info("registerKeyword_self - Start");
     	
     	String Topic = "SIMULATOR_CREATED_TOPIC"; 
-    	int sleepTime = 200;
+    	int sleepTime = 1000;
     	
     	// setCreated_at & setText
-    	for(int i = 0; i < 300; i++) {
+    	for(int i = 0; i < 100; i++) {
     		
     		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     		Date time = new Date();
@@ -42,7 +42,7 @@ public class SimulatorServiceImpl implements SimulatorService {
     		
     		input.setCreatedTime(stringTime);    		
     		input.setText(input.getKeyword() + i);    		
-    		input.setValue((int)(Math.random() * (1000 - 0 + 1) + 0));
+    		input.setValue((int)(Math.random() * (10 + 1) + 0));
     		
         	sender.send(Topic, input);
         	
